@@ -67,6 +67,29 @@ async function loadProfile() {
                 })
             });
         });
+    })
+}
+
+async function deleteUser(userId) {
+    let data = {
+        userId: userId,
+    }
+
+    fetch('/deleteuser', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then(response => response.json()).then(async (data) => {
+        console.log(data)
+        if (data.success) {
+            console.log("User successfully deleted!")
+            window.location.href = '/admin'
+        } else {
+            console.log("Uh oh! We did a fucky wucky")
+        }
+    })
 }
 
 async function loadTimeline() {
@@ -90,5 +113,5 @@ async function loadTimelineHandler() {
     $("#timeline").append(text);
 }
 
-loadProfile();
+loadUserList();
 loadTimelineHandler();

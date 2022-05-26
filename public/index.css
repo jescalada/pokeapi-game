@@ -261,3 +261,36 @@ i:hover {
     padding: 0.5rem;
     border-radius: 10rem;
 }
+
+#user-entry-container {
+    border-radius: 1rem;
+    border: #333 4px solid;
+    list-style: none;
+    background-color: #ffb7b7;
+    margin: 0;
+    padding: 0.5rem;
+}
+
+.user-entry {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    border-radius: 1rem;
+    background-color: #ffd3d0;
+
+}
+
+.delete-user-button {
+    margin-left: 1rem;
+    padding: 0.5rem;
+    border: #333 solid 3px;
+    background-color: red;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.user-info {
+    margin: 0.5rem;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
