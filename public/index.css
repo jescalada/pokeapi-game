@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;700&display=swap');
+
+p {
+    font-family: 'Roboto', Arial;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', Arial;
+}
+
+body {
+    margin: 0px;
+    background-color: #fff6f6;
+}
+
+nav {
+    display: flex;
+    background-color: rgb(247, 42, 42);
+    border-top: black 4px solid;
+    border-bottom: black 4px solid;
+}
+
+main {
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.active {
+    background-color: rgb(144, 25, 25);
+}
+
+.img-container,
+.info-container,
+.thumbnail-container {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: 2px #ffb7b7 solid;
+    background-color: white;
+    margin: 1rem;
+}
+
+.pokemon-image:hover {
+    cursor: pointer;
+}
+
+.img-container > img, .info-container > img {
+    max-width: 360px;
+    height: auto;
+}
+
+.thumbnail-container > img {
+    max-width: 120px;
+    height: auto;
+}
+
+nav a {
+    display: block;
+    float: left;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    padding: 14px 16px;
+    text-align: center;
+}
+
+nav a:hover {
+    background-color: f2f2f2;
+    color: #333;
+}
+
+@media screen and (max-width: 720px) {
+    .row {
+        flex-direction: column;
+    }
+    nav a {
+        width: 100%;
+        float: none !important;
+    }
+}
+
+h1 {
+    margin: 0px;
+}
+
+footer,
+header {
+    text-align: center;
+}
+
+main {
+    margin-bottom: 2rem;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#search-form {
+    padding: 0.5rem;
+}
+
+#search-form button {
+    padding: 0.5rem;
+    border: 3px black solid;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: red;
+    border-radius: 2rem;
+}
+
+#search-box {
+    border-radius: 2rem;
+    padding: 8px;
+    margin: 8px;
+    font-size: 1rem;
+}
+
+.pokemon-name {
+    margin: 1rem;
+    font-size: 1.5rem;
+}
+
+.pokemon-type {
+    background-color: lightblue;
+    border: #95b8ff 2px solid;
+    margin: 0.25rem 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+
+.pokemon-type > h2 {
+    padding: 0rem 1rem;
+}
+
+.pokemon-stat {
+    background-color: lightblue;
+    border: #dfdfdf 1px solid;
+    margin: 0 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    width: 6.5rem;
+    text-align: center;
+}
+
+.pokemon-stat > h3 {
+    margin: 0;
+    padding: 1rem;
+}
+
+.pokemon-stat > p {
+    margin: 0;
+    padding: 1rem;
+}
+
+i {
+    font-size: 3rem;
+    text-align: center;
+    margin: 0 0.5rem;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+.footer-copyright {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+#timeline {
+    border: rgb(0, 0, 0) 3px solid;
+    border-radius: 1rem;
+    background-color: #ffa0a0;
+    margin: 1rem;
+    max-height: 10rem;
+    max-width: 15rem;
+    overflow: auto;
+}
+
+#timeline h2 {
+    text-align: center;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+#timeline ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#timeline li {
+    list-style: none;
+    padding: 0.5rem;
+    margin: 0.2rem;
+    color: #4d88ff;
+    background-color: #ffd3d0;
+    font-weight: bold;
+    border-radius: 1rem;
+    line-height: 1.5rem;
+}
+
+#timeline li:hover {
+    cursor: pointer;
+}
+
+.card-quantity-button, .button {
+    padding: 0.5rem;
+    border: 3px black solid;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: red;
+    border-radius: 10rem;
+    margin: 0 1rem;
+}
+
+.add-to-cart-button {
+    padding: 0.5rem;
+    border: 3px black solid;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background-color: red;
+    border-radius: 10rem;
+    margin: 0 1rem;
+}
+
+.card-price {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.pokemon-buy-details {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.cost {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+}
+
+.card-total-price {
+    margin: 0 2rem;
+}
+
+.form {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 10rem;
+}

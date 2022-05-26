@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3: Pokeshop</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Import Bootstrap icons for footer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- Import jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            Poké-info
+        </h1>
+    </header>
+
+    <nav>
+        <a href="/">
+            Home
+        </a>
+        <a href="/search">
+            Search
+        </a>
+        <a href="/cart">
+            Cart
+        </a>
+        <a href="/profile">
+            Profile
+        </a>
+        <a href="/login" class="active">
+            Login
+        </a>
+    </nav>
+
+    <main>
+        <div class="row">
+            <p>
+                Welcome to Poke-info! Please Log in with your credentials below, or Register to create a new account.
+            </p>
+        </div>
+        <div class="row">
+            <form action="/login" method="post">
+                <div>
+                    <div class="col">
+                        <label for="username">Username</label>
+                        <input type="username" class="form" id="username" name="username"
+                            placeholder="Username" required>
+                    </div>
+                    <div class="col">
+                        <label for="password">Password</label>
+                        <input type="password" class="form" id="password" name="password"
+                            placeholder="Password" required>
+                    </div>
+                    <p id="error-text" style="color: red;"></p>
+                    <p id="success-text" style="color: green;"></p>
+                    <button type="button" onclick="login()" class="button">Log in</button>
+                    <button type="button" onclick="register()" class="button">Register</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a>
+                <i class="bi bi-github" onclick="window.open('https://github.com/jescalada', '_blank')"></i>
+            </a>
+            <a>
+                <i class="bi bi-linkedin"
+                    onclick="window.open('https://www.linkedin.com/in/juan-escalada-262482222/', '_blank')"></i>
+            </a>
+            <a>
+                <i class="bi bi-envelope-fill" onclick="window.open('mailto:jescalada@my.bcit.ca', '_blank')"></i>
+            </a>
+        </div>
+        <div class="footer-copyright">© 2022 <a href="/">Juan Escalada</a>
+        </div>
+    </footer>
+    <script src="login.js"></script>
+</body>
+</html>
