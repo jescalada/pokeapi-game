@@ -47,7 +47,8 @@ const usersSchema = new mongoose.Schema({
     past_orders: [
         [Object]
     ],
-    timeline: [Object]
+    timeline: [Object],
+    isAdmin: Boolean
 }, {
     collection: 'users'
 })
@@ -124,13 +125,15 @@ app.post('/login', async (req, res) => {
 
 app.post('/register', async (req, res) => {
     let userId = 100000000 + Math.floor(Math.random() * 10000);
+    console.log(req.body.isAdmin)
     await usersModel.insertMany({
         username: req.body.username,
         password: req.body.password,
         cart: [],
         past_orders: [],
         user_id: userId,
-        timeline: []
+        timeline: [],
+        isAdmin: req.body.isAdmin
     }).then((result, err) => {
         if (err) {
             res.json({
@@ -275,17 +278,19 @@ app.post('/userlist', async (req, res) => {
 
 app.post('/deleteuser', async (req, res) => {
     let userId = req.body.userId
-    try {
-        await usersModel.remove({ user_id: userId }).then(
+    if (Number(userId) === Number(req.session.user.user_id)) {
+        return res.json({
+            success: false,
+            message: "Can't delete your own account!"
+        })
+    } else {
+        await usersModel.deleteOne({ user_id: userId }).then(
             res.json({
-                success: true
+                success: true,
+                message: "Successfully deleted the account!"
             })
         )
-    } catch {
-        res.json({
-            success: false
-        })
-    }    
+    }   
 })
 
 async function updateCart(userId, quantity, pokemonId) {

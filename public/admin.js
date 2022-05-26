@@ -63,10 +63,9 @@ async function deleteUser(userId) {
     }).then(response => response.json()).then(async (data) => {
         console.log(data)
         if (data.success) {
-            console.log("User successfully deleted!")
             window.location.href = '/admin'
         } else {
-            console.log("Uh oh! We did a fucky wucky")
+            alert(data.message)
         }
     })
 }
