@@ -75,6 +75,10 @@ app.get('/profile', authenticate, (req, res) => {
     res.sendFile(__dirname + '/public/profile.html')
 })
 
+app.get('/admin', authenticateAndCheckIfAdmin, (req, res) => {
+    res.sendFile(__dirname + '/public/admin.html')
+})
+
 // This is a get route that does not need the middleware authenticator (it would make an infinite loop)
 app.get('/login', (req, res) => {
     // If they're authenticated, send them to their profile, otherwise send them to the login page
@@ -94,11 +98,20 @@ function authenticate(req, res, next) {
     }
 }
 
+// Checks if the user is authenticated, and either executes the next function or redirects to login
+function authenticateAndCheckIfAdmin(req, res, next) {
+    if (req.session.authenticated && req.session.user.isAdmin) {
+        next()
+    } else {
+        res.redirect('/')
+    }
+}
+
 app.post('/login', async (req, res) => {
     await authenticateLogin(req.body.username, req.body.password).then(user => {
-        console.log(user)
         if (user) {
             req.session.user = user
+            req.session.isAdmin = user.isAdmin
         }
     })
     req.session.authenticated = req.session.user != null
