@@ -268,6 +268,26 @@ app.post('/cart', async (req, res) => {
     return res.json(user[0]);
 })
 
+app.post('/userlist', async (req, res) => {
+    const users = await usersModel.find({ })
+    return res.json(users);
+})
+
+app.post('/deleteuser', async (req, res) => {
+    let userId = req.body.userId
+    try {
+        await usersModel.remove({ user_id: userId }).then(
+            res.json({
+                success: true
+            })
+        )
+    } catch {
+        res.json({
+            success: false
+        })
+    }    
+})
+
 async function updateCart(userId, quantity, pokemonId) {
     await usersModel.findOneAndUpdate({
         user_id: userId
