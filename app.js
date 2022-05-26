@@ -96,9 +96,9 @@ function authenticate(req, res, next) {
 
 app.post('/login', async (req, res) => {
     await authenticateLogin(req.body.username, req.body.password).then(user => {
+        console.log(user)
         if (user) {
             req.session.user = user
-            req.session.user_id = user.user_id
         }
     })
     req.session.authenticated = req.session.user != null

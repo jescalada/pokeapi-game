@@ -14,6 +14,7 @@ function login() {
         // If authentication was successful, redirect to user profile, else display an error message
         if (data.success) {
             sessionStorage.setItem("userId", data.user.user_id);
+            sessionStorage.setItem("isAdmin", data.user.isAdmin);
             sessionStorage.setItem("authenticated", data.success);
             window.location.href = '/profile'
         } else {
