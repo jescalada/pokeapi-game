@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3: Pokeshop</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Import Bootstrap icons for footer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- Import jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            Admin
+        </h1>
+    </header>
+
+    <nav>
+        <a href="/">
+            Home
+        </a>
+        <a href="/search">
+            Search
+        </a>
+        <a href="/cart">
+            Cart
+        </a>
+        <a href="/profile" class="active">
+            Profile
+        </a>
+        <a href="/login">
+            Login
+        </a>
+    </nav>
+
+    <main>
+        <div class="row" style="flex-direction: column">
+            <div id="profile-info" class="col">
+                <h1 id="profile-title"><span id="username">username</span>'s Profile:</h1>
+            </div>
+            <h2 style="text-align: center" class="col"><span id="username2">username</span>'s Timeline</h2>
+            <div id="timeline" class="col">
+    
+            </div>
+            <h2 id="profile-title"><span id="username3">username</span>'s Past Orders:</h2>
+            <div id="past-orders" class="col">
+                
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a>
+                <i class="bi bi-github" onclick="window.open('https://github.com/jescalada', '_blank')"></i>
+            </a>
+            <a>
+                <i class="bi bi-linkedin"
+                    onclick="window.open('https://www.linkedin.com/in/juan-escalada-262482222/', '_blank')"></i>
+            </a>
+            <a>
+                <i class="bi bi-envelope-fill" onclick="window.open('mailto:jescalada@my.bcit.ca', '_blank')"></i>
+            </a>
+        </div>
+        <div class="footer-copyright">© 2022 <a href="/">Juan Escalada</a>
+        </div>
+    </footer>
+    <script src="authentication.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>
