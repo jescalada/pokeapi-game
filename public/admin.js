@@ -92,5 +92,29 @@ async function loadTimelineHandler() {
     $("#timeline").append(text);
 }
 
+function registerUser() {
+    let data = {
+        username: $("#username").val(),
+        password: $("#password").val(),
+        isAdmin: document.getElementById("isAdmin").checked
+    }
+
+    fetch('/register', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then(response => response.json()).then((data) => {
+        // On success, redirect (refresh) to login
+        if (data.success) {
+            $("#success-text").text("Account created.")
+            window.location.href = '/admin'
+        } else {
+            $("#error-text").text("Account creation failed.")
+        }
+    })
+}
+
 loadUserList();
 loadTimelineHandler();

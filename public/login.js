@@ -26,7 +26,8 @@ function login() {
 function register() {
     let data = {
         username: $("#username").val(),
-        password: $("#password").val()
+        password: $("#password").val(),
+        isAdmin: document.getElementById("isAdmin").checked
     }
 
     fetch('/register', {
