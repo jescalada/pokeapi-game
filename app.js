@@ -80,6 +80,10 @@ app.get('/admin', authenticateAndCheckIfAdmin, (req, res) => {
     res.sendFile(__dirname + '/public/admin.html')
 })
 
+app.get('/game', authenticate, (req, res) => {
+    res.sendFile(__dirname + '/public/game.html')
+})
+
 // This is a get route that does not need the middleware authenticator (it would make an infinite loop)
 app.get('/login', (req, res) => {
     // If they're authenticated, send them to their profile, otherwise send them to the login page
