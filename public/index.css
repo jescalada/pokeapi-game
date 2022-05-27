@@ -294,3 +294,26 @@ i:hover {
     margin: 0.5rem;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
+
+#game-grid {
+    border: 4px solid #333;
+    width: 600px;
+    height: 400px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.game-card {
+    width: 33%;
+    position: relative;
+}
+
+.game-card img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-front, .card-back {
+    position: absolute;
+}
