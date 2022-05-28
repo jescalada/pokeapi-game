@@ -308,7 +308,7 @@ i:hover {
 .game-card {
     width: 33%;
     position: relative;
-    transition: transform 0.7s;
+    transition: transform 0.5s;
     transform-style: preserve-3d;
     backface-visibility: hidden;
 }
