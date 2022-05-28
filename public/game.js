@@ -1,17 +1,14 @@
 var firstCard = 0;
 var secondCard = 0;
 var pairsMatched = 0;
-
-async function loadImageUrls(pokemonIndices) {
-    pokemonIndices.forEach(index => {
-        
-    });
-}
+var totalNumberOfPairs = 0;
 
 function loadGame(difficulty) {
     let numberOfPokemon = difficulty * 3;
-    let numberOfPairs = numberOfPokemon * 2;
+    totalNumberOfPairs = numberOfPokemon * 2;
     let randomPokemonIndices = [];
+
+    $("#game-grid").css("height", `${300 * difficulty}px`)
 
     // Get random pokemon IDs
     for (i = 0; i < numberOfPokemon; i++) {
@@ -21,13 +18,11 @@ function loadGame(difficulty) {
     }
 
     // Shuffle the pokemon index array
-    randomPokemonIndices.sort(() => Math.random() - 0.5)
-
-
+    shuffleArray(randomPokemonIndices);
 
     $("#game-grid").empty();
     let grid = ``;
-    for (i = 0; i < numberOfPairs * 2; i++) {
+    for (i = 0; i < totalNumberOfPairs * 2; i++) {
         grid += `
         <div class="game-card" id="card-${i + 1}" onclick="flipCard(${i+1})">
             <img class="card-front" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${randomPokemonIndices[i]}.png">
@@ -64,6 +59,12 @@ function flipCard(cardIndex) {
                 $(`#card-${firstCard}`).prop("onclick", null);
                 $(`#card-${secondCard}`).prop("onclick", null);
                 console.log("pairs: " + pairsMatched)
+                
+                if (pairsMatched == totalNumberOfPairs) {
+                    console.log("You won!");
+                    // todo add WIN to timeline
+                    // todo reset game grid and varibales
+                }
             } else {
                 $(`#card-${firstCard}`).toggleClass("flip");
                 $(`#card-${secondCard}`).toggleClass("flip");
@@ -77,4 +78,9 @@ function flipCard(cardIndex) {
     }
 }
 
-loadGame(1);
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
