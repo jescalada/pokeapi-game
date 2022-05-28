@@ -2,6 +2,42 @@ var firstCard = 0;
 var secondCard = 0;
 var pairsMatched = 0;
 
+async function loadImageUrls(pokemonIndices) {
+    pokemonIndices.forEach(index => {
+        
+    });
+}
+
+function loadGame(difficulty) {
+    let numberOfPokemon = difficulty * 3;
+    let numberOfPairs = numberOfPokemon * 2;
+    let randomPokemonIndices = [];
+
+    // Get random pokemon IDs
+    for (i = 0; i < numberOfPokemon; i++) {
+        let randomIndex = Math.ceil(Math.random() * 150);
+        randomPokemonIndices.push(randomIndex, randomIndex); // Randomly returns an index corresponding to all Gen 1 pokemon
+        randomPokemonIndices.push(randomIndex, randomIndex);
+    }
+
+    // Shuffle the pokemon index array
+    randomPokemonIndices.sort(() => Math.random() - 0.5)
+
+
+
+    $("#game-grid").empty();
+    let grid = ``;
+    for (i = 0; i < numberOfPairs * 2; i++) {
+        grid += `
+        <div class="game-card" id="card-${i + 1}" onclick="flipCard(${i+1})">
+            <img class="card-front" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${randomPokemonIndices[i]}.png">
+            <img class="card-back" src="pokecard.jpg">
+        </div>
+        `
+    }
+    $("#game-grid").append(grid);    
+}
+
 function flipCard(cardIndex) {
     $(`#card-${cardIndex}`).toggleClass("flip");
 
