@@ -13,8 +13,10 @@ function loadGame(difficulty) {
     let numberOfPokemon = difficulty * 3;
     totalNumberOfPairs = numberOfPokemon * 2;
     let randomPokemonIndices = [];
-    movesLeft = totalNumberOfPairs * 2 * difficulty;
+    movesLeft = totalNumberOfPairs * 4;
     gameRunning = true;
+    score = 0;
+    pairsMatched = 0;
 
     $("#game-grid").attr("disabled", false)
     $("#game-grid").css("height", `${300 * difficulty}px`)
@@ -84,7 +86,9 @@ function flipCard(cardIndex) {
 
                 if (pairsMatched == totalNumberOfPairs) {
                     $("#game-status").text("You won! Click a difficulty to play again.");
-
+                    score += movesLeft * diff * 10
+                    $("#score").text(score)
+                    
                     addWinToTimeline(userId, diff, score);
 
                     firstCard = 0;
@@ -94,23 +98,28 @@ function flipCard(cardIndex) {
                     score = 0;
                     diff = 0;
                     gameRunning = false;
+                } else {
+                    checkGameOver();   
                 }
             } else {
                 $(`#card-${firstCard}`).toggleClass("flip");
                 $(`#card-${secondCard}`).toggleClass("flip");
                 $(`#card-${firstCard}`).prop("disabled", false);
                 $(`#card-${secondCard}`).prop("disabled", false);
-                
-                if (movesLeft == 0) {
-                    $("#game-status").text("You lost! Click a difficulty to play again.");
-                    $("#game-grid").attr("disabled", true);
-                    gameRunning = false;
-                    addLossToTimeline(userId, diff, score);
-                }
+                checkGameOver();
             }
             firstCard = 0;
             secondCard = 0;
         }, 500);
+    }
+}
+
+function checkGameOver() {
+    if (movesLeft == 0) {
+        $("#game-status").text("You lost! Click a difficulty to play again.");
+        $("#game-grid").attr("disabled", true);
+        gameRunning = false;
+        addLossToTimeline(userId, diff, score);
     }
 }
 
