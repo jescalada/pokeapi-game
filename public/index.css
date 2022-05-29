@@ -332,3 +332,28 @@ i:hover {
 .card-front {
     transform: rotateY(180deg);
 }
+
+#game-info {
+    background-color: #ffb7b7;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.game-info-block {
+    margin: 0 1rem;
+    padding: 0.5rem;
+    border-radius: 10rem;
+    background-color: #ffd3d0;
+}
+
+.difficulty-button {
+    margin-left: 1rem;
+    padding: 0.5rem;
+    border: #333 solid 3px;
+    background-color: red;
+    border-radius: 2rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}

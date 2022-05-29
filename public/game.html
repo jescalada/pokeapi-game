@@ -48,11 +48,15 @@
             </div>
             <h2>Game</h2>
             <div class="row col">
-                <button onclick="loadGame(1)">Easy</button>
-                <button onclick="loadGame(2)">Medium</button>
-                <button onclick="loadGame(4)">Hard</button>    
+                <button class="difficulty-button" onclick="loadGame(1)">Easy</button>
+                <button class="difficulty-button" onclick="loadGame(2)">Medium</button>
+                <button class="difficulty-button" onclick="loadGame(4)">Hard</button>    
             </div>
-            <h2 class="col" id="game-status">Choose a difficulty</h2>
+            <div class="row" id="game-info">
+                <h2 class="col game-info-block" id="game-status">Choose a difficulty</h2>
+                <h2 class="col game-info-block">Moves Left: <span id="moves-left"></span></h2>
+                <h2 class="col game-info-block">Score: <span id="score"></span></h2>    
+            </div>
             <div id="game-grid">
 
             </div>

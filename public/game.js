@@ -43,10 +43,13 @@ function flipCard(cardIndex) {
 
     if (firstCard == 0) { // If the first card has not been selected yet
         firstCard = cardIndex;
+        console.log("First select: ", firstCard, secondCard, cardIndex)
         // Do nothing, as we are waiting for the user to select a second card
     } else if (firstCard == cardIndex) { // If the second card is the same INDEX as the first one
         // Flip it back
-        $(`#card-${firstCard}`).toggleClass("flip");
+        $(`#card-${cardIndex}`).toggleClass("flip");
+        $(`#card-${cardIndex}`).toggleClass("flip");
+        console.log("Flipback: ", firstCard, secondCard, cardIndex)
         firstCard = 0;
     } else if (secondCard == 0) {
         secondCard = cardIndex;
