@@ -48,6 +48,7 @@ const usersSchema = new mongoose.Schema({
         [Object]
     ],
     timeline: [Object],
+    game_timeline: [Object],
     isAdmin: Boolean
 }, {
     collection: 'users'
@@ -256,6 +257,21 @@ app.get('/timeline/:userId', async (req, res) => {
     return res.json(user[0].timeline);
 })
 
+app.get('/gametimeline/:userId', async (req, res) => {
+    const user = await usersModel.find({
+        user_id: req.params.userId
+    })
+    return res.json(user[0].game_timeline);
+})
+
+app.post('/addwin', async (req, res) => {
+    res.json(await addWin(req.body.userId, req.body.difficulty, req.body.score))
+})
+
+app.post('/addloss', async (req, res) => {
+    res.json(await addLoss(req.body.userId, req.body.difficulty, req.body.score))
+})
+
 app.post('/addtocart', async (req, res) => {
     res.json(await updateCart(req.body.userId, req.body.quantity, req.body.pokemonId))
 })
@@ -296,6 +312,48 @@ app.post('/deleteuser', async (req, res) => {
         )
     }   
 })
+
+async function addWin(userId, difficulty, points) {
+    let entry = {
+        message: `Won on difficulty ${difficulty}! Score: ${points}`,
+        timestamp: Date.now()
+    }
+
+    await usersModel.findOneAndUpdate({
+        user_id: userId
+    }, {
+        $push: {
+            game_timeline: {
+                entry
+            }
+        }
+    }).then(() => {
+        return {
+            success: true
+        }
+    })
+}
+
+async function addLoss(userId, difficulty, points) {
+    let entry = {
+        message: `Lost on difficulty ${difficulty}! Score: ${points}`,
+        timestamp: Date.now()
+    }
+
+    await usersModel.findOneAndUpdate({
+        user_id: userId
+    }, {
+        $push: {
+            game_timeline: {
+                entry
+            }
+        }
+    }).then(() => {
+        return {
+            success: true
+        }
+    })
+}
 
 async function updateCart(userId, quantity, pokemonId) {
     await usersModel.findOneAndUpdate({
