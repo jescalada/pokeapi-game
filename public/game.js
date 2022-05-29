@@ -5,15 +5,23 @@ var totalNumberOfPairs = 0;
 var diff = 0;
 var score = 0;
 var userId = getUserId();
+var movesLeft = 0;
+var gameRunning = false;
 
 function loadGame(difficulty) {
     diff = difficulty;
     let numberOfPokemon = difficulty * 3;
     totalNumberOfPairs = numberOfPokemon * 2;
     let randomPokemonIndices = [];
+    movesLeft = totalNumberOfPairs * 2 * difficulty;
+    gameRunning = true;
 
+    $("#game-grid").attr("disabled", false)
     $("#game-grid").css("height", `${300 * difficulty}px`)
     $("#game-status").text(`Current Difficulty: ${difficulty}`)
+    
+    $("#score").text(score)
+    $("#moves-left").text(movesLeft)
 
     // Get random pokemon IDs
     for (i = 0; i < numberOfPokemon; i++) {
@@ -39,6 +47,7 @@ function loadGame(difficulty) {
 }
 
 function flipCard(cardIndex) {
+    if (!gameRunning) return
     $(`#card-${cardIndex}`).toggleClass("flip");
 
     if (firstCard == 0) { // If the first card has not been selected yet
@@ -53,6 +62,9 @@ function flipCard(cardIndex) {
         firstCard = 0;
     } else if (secondCard == 0) {
         secondCard = cardIndex;
+        movesLeft--;
+        $("#moves-left").text(movesLeft)
+
         // Handle the card check
         let firstCardImage = $(`#card-${firstCard} > img.card-front`).attr("src")
         let secondCardImage = $(`#card-${secondCard} > img.card-front`).attr("src")
@@ -67,12 +79,12 @@ function flipCard(cardIndex) {
                 score += 100;
                 $(`#card-${firstCard}`).prop("onclick", null);
                 $(`#card-${secondCard}`).prop("onclick", null);
-                console.log("pairs: " + pairsMatched)
+                $("#score").text(score)
+                $("#moves-left").text(movesLeft)
 
                 if (pairsMatched == totalNumberOfPairs) {
-                    $("#game-status").text("You won! Click difficulty to play again.");
+                    $("#game-status").text("You won! Click a difficulty to play again.");
 
-                    // todo add WIN to timeline
                     addWinToTimeline(userId, diff, score);
 
                     firstCard = 0;
@@ -81,13 +93,20 @@ function flipCard(cardIndex) {
                     totalNumberOfPairs = 0;
                     score = 0;
                     diff = 0;
+                    gameRunning = false;
                 }
             } else {
                 $(`#card-${firstCard}`).toggleClass("flip");
                 $(`#card-${secondCard}`).toggleClass("flip");
                 $(`#card-${firstCard}`).prop("disabled", false);
                 $(`#card-${secondCard}`).prop("disabled", false);
-                console.log("pairs: " + pairsMatched)
+                
+                if (movesLeft == 0) {
+                    $("#game-status").text("You lost! Click a difficulty to play again.");
+                    $("#game-grid").attr("disabled", true);
+                    gameRunning = false;
+                    addLossToTimeline(userId, diff, score);
+                }
             }
             firstCard = 0;
             secondCard = 0;
@@ -131,6 +150,24 @@ async function addWinToTimeline(userId, difficulty, score) {
     }
 
     fetch('/addwin', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then((data) => {
+        loadGameTimelineHandler()
+    });
+};
+
+async function addLossToTimeline(userId, difficulty, score) {
+    let data = {
+        userId: userId,
+        difficulty: difficulty,
+        score: score
+    }
+
+    fetch('/addloss', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
