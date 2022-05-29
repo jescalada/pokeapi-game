@@ -9,6 +9,7 @@ function loadGame(difficulty) {
     let randomPokemonIndices = [];
 
     $("#game-grid").css("height", `${300 * difficulty}px`)
+    $("#game-status").text(`Current Difficulty: ${difficulty}`)
 
     // Get random pokemon IDs
     for (i = 0; i < numberOfPokemon; i++) {
@@ -61,9 +62,15 @@ function flipCard(cardIndex) {
                 console.log("pairs: " + pairsMatched)
                 
                 if (pairsMatched == totalNumberOfPairs) {
-                    console.log("You won!");
+                    $("#game-status").text("You won! Click difficulty to play again.");
+                    
                     // todo add WIN to timeline
-                    // todo reset game grid and varibales
+                    addWinToTimeline(getUserId(), totalNumberOfPairs);
+                    
+                    firstCard = 0;
+                    secondCard = 0;
+                    pairsMatched = 0;
+                    totalNumberOfPairs = 0;
                 }
             } else {
                 $(`#card-${firstCard}`).toggleClass("flip");
@@ -83,4 +90,8 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+}
+
+async function addWinToTimeline(userId) {
+
 }
