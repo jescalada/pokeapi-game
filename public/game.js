@@ -2,8 +2,12 @@ var firstCard = 0;
 var secondCard = 0;
 var pairsMatched = 0;
 var totalNumberOfPairs = 0;
+var diff = 0;
+var score = 0;
+var userId = getUserId();
 
 function loadGame(difficulty) {
+    diff = difficulty;
     let numberOfPokemon = difficulty * 3;
     totalNumberOfPairs = numberOfPokemon * 2;
     let randomPokemonIndices = [];
@@ -31,7 +35,7 @@ function loadGame(difficulty) {
         </div>
         `
     }
-    $("#game-grid").append(grid);    
+    $("#game-grid").append(grid);
 }
 
 function flipCard(cardIndex) {
@@ -52,25 +56,28 @@ function flipCard(cardIndex) {
 
         $(`#card-${firstCard}`).prop("disabled", true);
         $(`#card-${secondCard}`).prop("disabled", true);
-        
-        setTimeout(function() {
+
+        setTimeout(function () {
             // Check if matched
             if (firstCardImage == secondCardImage) {
                 pairsMatched++;
+                score += 100;
                 $(`#card-${firstCard}`).prop("onclick", null);
                 $(`#card-${secondCard}`).prop("onclick", null);
                 console.log("pairs: " + pairsMatched)
-                
+
                 if (pairsMatched == totalNumberOfPairs) {
                     $("#game-status").text("You won! Click difficulty to play again.");
-                    
+
                     // todo add WIN to timeline
-                    addWinToTimeline(getUserId(), totalNumberOfPairs);
-                    
+                    addWinToTimeline(userId, diff, score);
+
                     firstCard = 0;
                     secondCard = 0;
                     pairsMatched = 0;
                     totalNumberOfPairs = 0;
+                    score = 0;
+                    diff = 0;
                 }
             } else {
                 $(`#card-${firstCard}`).toggleClass("flip");
@@ -92,6 +99,43 @@ function shuffleArray(array) {
     }
 }
 
-async function addWinToTimeline(userId) {
-
+async function loadGameTimelineHandler() {
+    const timeline = await loadGameTimeline()
+    $("#timeline").empty()
+    timeline.forEach(object => {
+        entry = object.entry
+        let timeData = new Date(entry.timestamp).toString().split("GMT")
+        let text = `<li>${entry.message}<br>${timeData[0]}</li>`
+        $("#timeline").append(text)    
+    });
 }
+
+async function loadGameTimeline() {
+    try {
+        const timeline = await $.get(`/gametimeline/${userId}`, function (timeline, status) {});
+        console.log(timeline)
+        return timeline;
+    } catch {
+        return null;
+    }
+}
+
+async function addWinToTimeline(userId, difficulty, score) {
+    let data = {
+        userId: userId,
+        difficulty: difficulty,
+        score: score
+    }
+
+    fetch('/addwin', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then((data) => {
+        loadGameTimelineHandler()
+    });
+};
+
+loadGameTimelineHandler();
