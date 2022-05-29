@@ -1,5 +1,5 @@
 # pokeapi-shop
-Assignment 3 for Web Dev 2
+Assignment 4 for Web Dev 2
 
 Build instructions:  
 npm install  
